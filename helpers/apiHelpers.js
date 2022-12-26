@@ -11,9 +11,6 @@ const asyncWrapper = (controller) => {
 };
 
 const errorHandler = (error, req, res, next) => {
-  console.log(error instanceof ValidationError);
-  console.log(error instanceof WrongParametersError);
-  console.log(error instanceof WrongDirectoryError);
   if (
     error instanceof ValidationError ||
     error instanceof WrongParametersError ||
