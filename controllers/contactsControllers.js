@@ -4,6 +4,7 @@ const {
   removeContact,
   addContact,
   updateContact,
+  updateContactStatus,
 } = require("../models/contacts");
 
 const getContacts = async (req, res, next) => {
@@ -72,6 +73,23 @@ const updtContact = async (req, res) => {
     console.log(error);
   }
 };
+const updtContactStatus = async (req, res) => {
+  try {
+    const { contactId } = req.params;
+
+    const updatedContactStatus = await updateContactStatus(contactId, req.body);
+
+    if (!updatedContactStatus) {
+      res.status(404).json({ message: "Not Found" });
+    } else {
+      res
+        .status(200)
+        .json({ status: `Contact ${contactId} status updated successfully` });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   getContacts,
@@ -79,4 +97,5 @@ module.exports = {
   deleteContact,
   addNewContact,
   updtContact,
+  updtContactStatus,
 };

@@ -34,6 +34,7 @@ module.exports = {
         minDomainSegments: 2,
         tlds: { allow: ["com", "net"] },
       }),
+      favorite: Joi.boolean(),
     });
     const validationResult = schema.validate(req.body);
     if (validationResult.error) {
