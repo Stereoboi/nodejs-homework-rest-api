@@ -6,12 +6,12 @@ const {
   deleteContact,
   addNewContact,
   updtContact,
-} = require("../../src/controllers/contactsControllers");
+} = require("../../controllers/contactsControllers");
 
 const {
   addContactValidation,
   updateContactValidation,
-} = require("../../src/middlewares/validationMiddelwares");
+} = require("../../middlewares/validationMiddelwares");
 
 const router = express.Router();
 

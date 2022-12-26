@@ -7,13 +7,26 @@ const {
 } = require("../models/contacts");
 
 const getContacts = async (req, res, next) => {
-  res.json(await listContacts());
+  try {
+    const results = await listContacts();
+    res.json({
+      status: "success",
+      code: 200,
+      data: {
+        tasks: results,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
 };
 
 const getContactId = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const contact = await getContactById(contactId);
+    console.log(contact);
     if (!contact) {
       return res
         .status(400)
@@ -28,7 +41,7 @@ const deleteContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const contact = await removeContact(contactId);
-    contact === false
+    !contact
       ? res.status(404).json({ message: `Not Found id:${contactId}` })
       : res.status(200).json({ message: `contact id:${contactId} deleted` });
   } catch (error) {
@@ -37,8 +50,8 @@ const deleteContact = async (req, res, next) => {
 };
 const addNewContact = async (req, res) => {
   try {
-    const { name, email, phone } = req.body;
-    await addContact(name, email, phone);
+    const { name, email, phone, favorite = false } = req.body;
+    await addContact(name, email, phone, favorite);
     res.status(201).json({ status: "success" });
   } catch (error) {
     console.log(error);
