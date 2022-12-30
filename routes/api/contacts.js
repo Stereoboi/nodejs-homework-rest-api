@@ -1,12 +1,17 @@
 const express = require("express");
-const contactsControllers = require("../../controllers");
+const { contactsControllers } = require("../../controllers");
 const {
   addContactValidation,
   updateContactValidation,
 } = require("../../middlewares/validationMiddelwares");
+
+const { authMiddleware } = require("../../middlewares/authMiddleware");
+
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.get("/", asyncWrapper(contactsControllers.getContactsController));
 

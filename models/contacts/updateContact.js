@@ -5,10 +5,10 @@ const {
   WrongDirectoryError,
 } = require("../../helpers/errors");
 
-const updateContact = async (contactId, body) => {
+const updateContact = async (contactId, body, owner) => {
   const { name, email, phone, favorite } = body;
-  const changeContact = await Contact.findByIdAndUpdate(
-    { _id: contactId },
+  const changeContact = await Contact.findOneAndUpdate(
+    { _id: contactId, owner },
     { $set: { name, email, phone, favorite } },
     { new: true }
   );
