@@ -5,7 +5,7 @@ const { NotAuthorizedError } = require("../../helpers/errors");
 
 const login = async (email, password) => {
   const user = await User.findOne({ email });
-  console.log(user);
+
   if (!user) {
     throw new NotAuthorizedError(`No user with email ${email} where found`);
   }
