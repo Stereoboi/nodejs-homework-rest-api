@@ -1,8 +1,4 @@
-const {
-  ValidationError,
-  WrongParametersError,
-  WrongDirectoryError,
-} = require("./errors");
+const { ClientError } = require("./errors");
 
 const asyncWrapper = (controller) => {
   return (req, res, next) => {
@@ -11,11 +7,7 @@ const asyncWrapper = (controller) => {
 };
 
 const errorHandler = (error, req, res, next) => {
-  if (
-    error instanceof ValidationError ||
-    error instanceof WrongParametersError ||
-    error instanceof WrongDirectoryError
-  ) {
+  if (error instanceof ClientError) {
     return res.status(error.status).json({ message: error.message });
   }
   res.status(500).json({ message: error.message });

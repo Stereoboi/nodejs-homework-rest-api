@@ -40,4 +40,34 @@ module.exports = {
     }
     next();
   },
+
+  registrationValidation: (req, res, next) => {
+    const schema = Joi.object({
+      password: Joi.string().min(5).max(15),
+      email: Joi.string().email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net"] },
+      }),
+    });
+    const validationResult = schema.validate(req.body);
+    if (validationResult.error) {
+      next(new ValidationError(validationResult.error.details[0].message));
+    }
+    next();
+  },
+
+  loginValidation: (req, res, next) => {
+    const schema = Joi.object({
+      password: Joi.string().min(5).max(15),
+      email: Joi.string().email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net"] },
+      }),
+    });
+    const validationResult = schema.validate(req.body);
+    if (validationResult.error) {
+      next(new ValidationError(validationResult.error.details[0].message));
+    }
+    next();
+  },
 };
