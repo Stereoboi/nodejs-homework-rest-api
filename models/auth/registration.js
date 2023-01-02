@@ -1,14 +1,14 @@
 const User = require("../schemas/auth");
+
 const { RegistrationConflictError } = require("../../helpers/errors");
 
-const registration = async (email, password) => {
+const registration = async (email, password, avatarURL) => {
   const userCheck = await User.findOne({ email });
-  // console.log("userCheck", userCheck);
-
   if (!userCheck) {
     const user = new User({
       email,
       password,
+      avatarURL,
     });
     await user.save();
   } else {
