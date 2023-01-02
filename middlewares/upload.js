@@ -11,7 +11,7 @@ const uploadConfig = multer.diskStorage({
     cb(null, file.originalname);
   },
   limits: {
-    fileSize: 50000,
+    fileSize: 40000,
   },
 });
 
