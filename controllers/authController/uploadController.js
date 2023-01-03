@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs/promises");
 const Jimp = require("jimp");
 const auth = require("../../models/auth");
-
+const avatarURLpath = process.env.AVATAR_URL;
 const uploadDir = path.join(__dirname, "../../", "public");
 
 const uploadController = async (req, res) => {
@@ -11,22 +11,18 @@ const uploadController = async (req, res) => {
 
   try {
     const [extension] = originalname.split(".").reverse();
-    const newImageName = `user_${_id}_avatar.${extension}`;
-    const originalImage = await Jimp.read(tmpDir);
-    const resizedImage = await originalImage.cover(250, 250);
-    await resizedImage.write(`${uploadDir}/avatars/${newImageName}`);
-
+    const newImgName = `userAvatar_${_id}.${extension}`;
+    const originalImg = await Jimp.read(tmpDir);
+    const resizedImg = await originalImg.cover(250, 250);
+    await resizedImg.write(`${uploadDir}/avatars/${newImgName}`);
     fs.unlink(tmpDir);
-
-    const avatar = path.join(newImageName);
-
+    const avatar = path.join(avatarURLpath, newImgName);
     const result = await auth.updateAvatar(avatar, _id);
     const { avatarURL } = result;
     res.status(200).json({ avatarURL });
   } catch (error) {
     fs.unlink(tmpDir);
     res.json({ error });
-    console.log(error);
   }
 };
 
