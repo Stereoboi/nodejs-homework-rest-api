@@ -6,6 +6,7 @@ const {
 } = require("../../middlewares/validationMiddelwares");
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 const { authMiddleware } = require("../../middlewares/authMiddleware");
+const upload = require("../../middlewares/upload");
 const router = express.Router();
 
 router.post(
@@ -33,6 +34,12 @@ router.patch(
   "/",
   authMiddleware,
   asyncWrapper(authControllers.updateSubController)
+);
+router.patch(
+  "/avatars",
+  authMiddleware,
+  upload.single("avatar"),
+  asyncWrapper(authControllers.uploadController)
 );
 
 module.exports = router;
