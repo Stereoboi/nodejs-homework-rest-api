@@ -3,6 +3,7 @@ const { authControllers } = require("../../controllers");
 const {
   registrationValidation,
   loginValidation,
+  secondVerificationValidation,
 } = require("../../middlewares/validationMiddelwares");
 const { asyncWrapper } = require("../../helpers/apiHelpers");
 const { authMiddleware } = require("../../middlewares/authMiddleware");
@@ -40,6 +41,15 @@ router.patch(
   authMiddleware,
   upload.single("avatar"),
   asyncWrapper(authControllers.uploadController)
+);
+router.get(
+  "/verify/:verificationToken",
+  asyncWrapper(authControllers.verificationController)
+);
+router.post(
+  "/verify",
+  secondVerificationValidation,
+  asyncWrapper(authControllers.secondVerificationController)
 );
 
 module.exports = router;

@@ -25,6 +25,13 @@ class WrongDirectoryError extends ClientError {
   }
 }
 
+class ValidationoError extends ClientError {
+  constructor(message) {
+    super(message);
+    this.status = 404;
+  }
+}
+
 class NotAuthorizedError extends ClientError {
   constructor(message) {
     super(message);
@@ -46,4 +53,5 @@ module.exports = {
   NotAuthorizedError,
   ClientError,
   RegistrationConflictError,
+  ValidationoError,
 };

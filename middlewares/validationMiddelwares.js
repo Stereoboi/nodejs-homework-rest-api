@@ -17,7 +17,7 @@ module.exports = {
     });
     const validationResult = schema.validate(req.body);
     if (validationResult.error) {
-      next(new ValidationError(validationResult.error.details[0].message));
+      throw new ValidationError(validationResult.error.details[0].message);
     }
     next();
   },
@@ -36,7 +36,7 @@ module.exports = {
     });
     const validationResult = schema.validate(req.body);
     if (validationResult.error) {
-      next(new ValidationError(validationResult.error.details[0].message));
+      throw new ValidationError(validationResult.error.details[0].message);
     }
     next();
   },
@@ -46,12 +46,12 @@ module.exports = {
       password: Joi.string().min(5).max(15),
       email: Joi.string().email({
         minDomainSegments: 2,
-        tlds: { allow: ["com", "net"] },
+        tlds: { allow: ["com", "net", "ua"] },
       }),
     });
     const validationResult = schema.validate(req.body);
     if (validationResult.error) {
-      next(new ValidationError(validationResult.error.details[0].message));
+      throw new ValidationError(validationResult.error.details[0].message);
     }
     next();
   },
@@ -66,7 +66,22 @@ module.exports = {
     });
     const validationResult = schema.validate(req.body);
     if (validationResult.error) {
-      next(new ValidationError(validationResult.error.details[0].message));
+      throw new ValidationError(validationResult.error.details[0].message);
+    }
+    next();
+  },
+  secondVerificationValidation: (req, res, next) => {
+    const schema = Joi.object({
+      email: Joi.string()
+        .email({
+          minDomainSegments: 2,
+          tlds: { allow: ["com", "net", "ua"] },
+        })
+        .required(),
+    });
+    const validationResult = schema.validate(req.body);
+    if (validationResult.error) {
+      throw new ValidationError(validationResult.error.details[0].message);
     }
     next();
   },
