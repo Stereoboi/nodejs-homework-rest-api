@@ -2,7 +2,7 @@ const auth = require("../../models/auth");
 const gravatar = require("gravatar");
 
 const registrationController = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
   const avatar = gravatar.url(
     email,
     {
@@ -11,7 +11,7 @@ const registrationController = async (req, res) => {
     },
     true
   );
-  await auth.registration(email, password, avatar);
+  await auth.registration(name, email, password, avatar);
   res.status(201).json({
     status: "success",
     user: { email: `${email}`, subscription: "starter" },

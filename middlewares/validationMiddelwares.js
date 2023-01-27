@@ -43,6 +43,7 @@ module.exports = {
 
   registrationValidation: (req, res, next) => {
     const schema = Joi.object({
+      name: Joi.string().min(3),
       password: Joi.string().min(5).max(15),
       email: Joi.string().email({
         minDomainSegments: 2,
