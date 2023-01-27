@@ -6,10 +6,10 @@ const {
 } = require("../../helpers/errors");
 
 const updateContact = async (contactId, body, owner) => {
-  const { name, email, phone, favorite } = body;
+  const { name, email, phone } = body;
   const changeContact = await Contact.findOneAndUpdate(
     { _id: contactId, owner },
-    { $set: { name, email, phone, favorite } },
+    { $set: { name, email, phone } },
     { new: true }
   );
   if (Object.keys(body).length === 0) {
