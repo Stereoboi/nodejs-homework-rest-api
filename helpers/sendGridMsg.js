@@ -1,13 +1,13 @@
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const sendGridMsg = (email, verificationToken) => {
-  const PORT = process.env.PORT;
+  const HOST = process.env.HOST;
   const SENDGRID_EMAIL = process.env.SENDGRID_EMAIL;
   const msg = {
     to: email,
     from: SENDGRID_EMAIL,
     subject: "Registration Verefication",
-    html: `<b>To verify your registration tap at this <a href="http://localhost:${PORT}/api/users/verify/${verificationToken}">link</a></b>`,
+    html: `<b>To verify your registration tap at this <a href="${HOST}/api/users/verify/${verificationToken}">link</a></b>`,
   };
 
   sgMail
