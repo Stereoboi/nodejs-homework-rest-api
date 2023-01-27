@@ -7,7 +7,7 @@ const sendGridMsg = (email, verificationToken) => {
     to: email,
     from: SENDGRID_EMAIL,
     subject: "Registration Verefication",
-    html: `<b>To verify your registration tap at this <a href="${HOST}/api/users/verify/${verificationToken}">link</a></b>`,
+    html: `<b>To verify your registration tap at this <a href="http://${HOST}/api/users/verify/${verificationToken}">link</a></b>`,
   };
 
   sgMail
