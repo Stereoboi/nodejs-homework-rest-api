@@ -2,8 +2,7 @@ const auth = require("../../models/auth");
 
 const loginController = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email);
-  console.log(password);
+
   const token = await auth.login(email, password);
   res.json({
     status: "success",
