@@ -14,7 +14,7 @@ const registrationController = async (req, res) => {
   await auth.registration(name, email, password, avatar);
   res.status(201).json({
     status: "success",
-    user: { email: `${email}`, subscription: "starter" },
+    user: { name: `${name}`, email: `${email}`, subscription: "starter" },
   });
 };
 
