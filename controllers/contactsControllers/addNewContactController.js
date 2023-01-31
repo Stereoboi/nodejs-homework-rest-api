@@ -7,14 +7,7 @@ const addNewContactController = async (req, res) => {
     { name, email, phone, favorite },
     _id
   );
-  res.status(201).json(
-    { status: "Successfully created" },
-    {
-      contact: {
-        contact,
-      },
-    }
-  );
+  res.status(201).json(contact);
 };
 
 module.exports = addNewContactController;
