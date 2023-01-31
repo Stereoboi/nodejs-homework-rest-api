@@ -4,8 +4,9 @@ const currentUserController = async (req, res) => {
   const { _id } = req.user;
   // console.log("req", req);
   const result = await auth.currentUser(_id);
-  const { email, subscription } = result;
+  const { name, email, subscription } = result;
   res.status(200).json({
+    name: `${name}`,
     email: `${email}`,
     subscription: `${subscription}`,
   });
