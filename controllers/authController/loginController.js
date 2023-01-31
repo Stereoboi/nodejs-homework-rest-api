@@ -3,11 +3,15 @@ const auth = require("../../models/auth");
 const loginController = async (req, res) => {
   const { email, password } = req.body;
 
-  const token = await auth.login(email, password);
+  const result = await auth.login(email, password);
   res.json({
     status: "success",
-    token: token,
-    user: { name: `${token.name}`, email: `${email}`, subscription: "starter" },
+    token: result.token,
+    user: {
+      name: `${result.name}`,
+      email: `${email}`,
+      subscription: "starter",
+    },
   });
 };
 
