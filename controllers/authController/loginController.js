@@ -4,11 +4,12 @@ const loginController = async (req, res) => {
   const { email, password } = req.body;
 
   const result = await auth.login(email, password);
+  const { token, logdUser } = result;
   res.json({
     status: "success",
-    token: result.token,
+    token: token,
     user: {
-      name: `${result.name}`,
+      name: `${logdUser.name}`,
       email: `${email}`,
       subscription: "starter",
     },

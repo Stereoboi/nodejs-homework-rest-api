@@ -19,7 +19,7 @@ const login = async (email, password) => {
     },
     process.env.JWT_SECRET
   );
-  const result = await User.findByIdAndUpdate(user._id, { token });
-  return { token, result };
+  const logdUser = await User.findByIdAndUpdate(user._id, { token });
+  return { token, logdUser };
 };
 module.exports = login;
