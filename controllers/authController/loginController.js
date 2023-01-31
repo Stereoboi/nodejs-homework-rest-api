@@ -7,7 +7,7 @@ const loginController = async (req, res) => {
   res.json({
     status: "success",
     token: token,
-    user: { email: `${email}`, subscription: "starter" },
+    user: { name: `${token.name}`, email: `${email}`, subscription: "starter" },
   });
 };
 
